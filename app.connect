@@ -1,0 +1,1243 @@
+title: BMS Command/Response
+
+python:
+  packages: requirements.txt
+
+streaming:
+  buffer_size: 20000
+  persistence:
+    - enabled:
+        value_id: streamingEnabled
+      data_source_rid:
+        value_id: dataset_rid
+      streams:
+        - id: fcb_ch1
+          tags: {source: "connect", ref_name: "fcb_ch1"}
+        - id: fcb_ch2
+          tags: {source: "connect", ref_name: "fcb_ch2"}
+        - id: ee_telemetry
+          tags: {source: "connect", ref_name: "ee_telemetry"}
+        - id: lv_telemetry
+          tags: {source: "connect", ref_name: "lv_telemetry"}
+        - id: hv_telemetry
+          tags: {source: "connect", ref_name: "hv_telemetry"}
+
+left_panel:
+  width: 0.25
+  tabs:
+    - name: Config
+      layout:
+        - id: resource
+          label: Resource
+          input: text
+          default: rio://169.254.158.148/RIO0
+        - id: maintenanceBusPort
+          label: Maintenance bus port
+          input: text
+          default: COM4
+        - id: bmsId
+          label: BMS ID
+          input: dropdown
+          default: BMS 1
+          options:
+            - BMS 1
+            - BMS 2
+            - BMS 3
+            - BMS 4
+            - BMS 5
+            - BMS 6
+        - id: vmsInControl
+          label: VMS in control
+          input: dropdown
+          default: VMSC 1
+          options:
+            - VMSC 1
+            - VMSC 2
+        - id: operationalMode
+          label: Operational mode
+          input: dropdown
+          default: OFF
+          options:
+            - adrita
+            - ADRITA
+            - ADRITA
+            - ADRITA
+            - ADRITA
+            - POSTFLIGHT
+            - MAINTENANCE
+        - controls: script_table
+          scripts:
+            - id: fcb_driver
+              label: Flight Control Bus
+              path: fcb_driver.py
+            - id: maintenance_driver
+              label: Maintenance Bus
+              path: maintenance_driver.py
+        - id: streamingEnabled
+          input: toggle_switch
+          on_label: Streaming
+          off_label: Streaming
+
+    - name: VMSC 1
+      layout:
+        - display: header
+          label: VMSC 1 (Channel 1)
+        - id: ch1IsBatAHvBreaktorClosed
+          label: Bat A HV contactor closed
+          input: checkbox
+        - id: ch1IsBatBHvBreaktorClosed
+          label: Bat B HV contactor closed
+          input: checkbox
+        - label: LV Loads
+          default_open: true
+          collapsible: true
+          group_layout:
+            - id: ch1_lv_load_1
+              label: LV Load 1
+              input: checkbox
+              default: true
+            - id: ch1_lv_load_2
+              label: LV Load 2
+              input: checkbox
+            - id: ch1_lv_load_3
+              label: LV Load 3
+              input: checkbox
+            - id: ch1_lv_load_4
+              label: LV Load 4
+              input: checkbox
+            - id: ch1_lv_load_5
+              label: LV Load 5
+              input: checkbox
+            - id: ch1_lv_load_6
+              label: LV Load 6
+              input: checkbox
+            - id: ch1_lv_load_7
+              label: LV Load 7
+              input: checkbox
+            - id: ch1_lv_load_8
+              label: LV Load 8
+              input: checkbox
+            - id: ch1_lv_load_9
+              label: LV Load 9
+              input: checkbox
+            - id: ch1_lv_load_10
+              label: LV Load 10
+              input: checkbox
+            - id: ch1_lv_load_11
+              label: LV Load 11
+              input: checkbox
+            - id: ch1_lv_load_12
+              label: LV Load 12
+              input: checkbox
+            - id: ch1_lv_load_13
+              label: LV Load 13
+              input: checkbox
+            - id: ch1_lv_load_14
+              label: LV Load 14
+              input: checkbox
+            - id: ch1_lv_load_15
+              label: LV Load 15
+              input: checkbox
+            - id: ch1_lv_load_16
+              label: LV Load 16
+              input: checkbox
+              default: true
+            - id: ch1_lv_load_17
+              label: LV Load 17
+              input: checkbox
+            - id: ch1_lv_load_18
+              label: LV Load 18
+              input: checkbox
+            - id: ch1_lv_load_19
+              label: LV Load 19
+              input: checkbox
+            - id: ch1_lv_load_20
+              label: LV Load 20
+              input: checkbox
+            - id: ch1_lv_load_21
+              label: LV Load 21
+              input: checkbox
+            - id: ch1_lv_load_22
+              label: LV Load 22
+              input: checkbox
+            - id: ch1_lv_load_23
+              label: LV Load 23
+              input: checkbox
+            - id: ch1_lv_load_24
+              label: LV Load 24
+              input: checkbox
+            - id: ch1_lv_load_25
+              label: LV Load 25
+              input: checkbox
+            - id: ch1_lv_load_26
+              label: LV Load 26
+              input: checkbox
+            - id: ch1_lv_load_27
+              label: LV Load 27
+              input: checkbox
+            - id: ch1_lv_load_28
+              label: LV Load 28
+              input: checkbox
+            - id: ch1_lv_load_29
+              label: LV Load 29
+              input: checkbox
+            - id: ch1_lv_load_30
+              label: LV Load 30
+              input: checkbox
+        - display: header
+          label: Command Payload
+        - display: banner
+          value_id: ch1Payload
+        - display: header
+          label: Response Payload
+        - display: banner
+          value_id: ch1Response
+        - display: banner
+          value_id: ch1OperationalModeEcho
+
+    - name: VMSC 2
+      layout:
+        - display: header
+          label: VMSC 2 (Channel 2)
+        - id: ch2IsBatAHvBreaktorClosed
+          label: Bat A HV contactor closed
+          input: checkbox
+        - id: ch2IsBatBHvBreaktorClosed
+          label: Bat B HV contactor closed
+          input: checkbox
+        - label: LV Loads
+          default_open: true
+          collapsible: true
+          group_layout:
+            - id: ch2_lv_load_1
+              label: LV Load 1
+              input: checkbox
+              default: true
+            - id: ch2_lv_load_2
+              label: LV Load 2
+              input: checkbox
+            - id: ch2_lv_load_3
+              label: LV Load 3
+              input: checkbox
+            - id: ch2_lv_load_4
+              label: LV Load 4
+              input: checkbox
+            - id: ch2_lv_load_5
+              label: LV Load 5
+              input: checkbox
+            - id: ch2_lv_load_6
+              label: LV Load 6
+              input: checkbox
+            - id: ch2_lv_load_7
+              label: LV Load 7
+              input: checkbox
+            - id: ch2_lv_load_8
+              label: LV Load 8
+              input: checkbox
+            - id: ch2_lv_load_9
+              label: LV Load 9
+              input: checkbox
+            - id: ch2_lv_load_10
+              label: LV Load 10
+              input: checkbox
+            - id: ch2_lv_load_11
+              label: LV Load 11
+              input: checkbox
+            - id: ch2_lv_load_12
+              label: LV Load 12
+              input: checkbox
+            - id: ch2_lv_load_13
+              label: LV Load 13
+              input: checkbox
+            - id: ch2_lv_load_14
+              label: LV Load 14
+              input: checkbox
+            - id: ch2_lv_load_15
+              label: LV Load 15
+              input: checkbox
+            - id: ch2_lv_load_16
+              label: LV Load 16
+              input: checkbox
+              default: true
+            - id: ch2_lv_load_17
+              label: LV Load 17
+              input: checkbox
+            - id: ch2_lv_load_18
+              label: LV Load 18
+              input: checkbox
+            - id: ch2_lv_load_19
+              label: LV Load 19
+              input: checkbox
+            - id: ch2_lv_load_20
+              label: LV Load 20
+              input: checkbox
+            - id: ch2_lv_load_21
+              label: LV Load 21
+              input: checkbox
+            - id: ch2_lv_load_22
+              label: LV Load 22
+              input: checkbox
+            - id: ch2_lv_load_23
+              label: LV Load 23
+              input: checkbox
+            - id: ch2_lv_load_24
+              label: LV Load 24
+              input: checkbox
+            - id: ch2_lv_load_25
+              label: LV Load 25
+              input: checkbox
+            - id: ch2_lv_load_26
+              label: LV Load 26
+              input: checkbox
+            - id: ch2_lv_load_27
+              label: LV Load 27
+              input: checkbox
+            - id: ch2_lv_load_28
+              label: LV Load 28
+              input: checkbox
+            - id: ch2_lv_load_29
+              label: LV Load 29
+              input: checkbox
+            - id: ch2_lv_load_30
+              label: LV Load 30
+              input: checkbox
+        - display: header
+          label: Command Payload
+        - display: banner
+          value_id: ch2Payload
+        - display: header
+          label: Response Payload
+        - display: banner
+          value_id: ch2Response
+        - display: banner
+          value_id: ch2OperationalModeEcho
+
+    - name: Maintenance Bus
+      layout:
+        - display: header
+          label: Maintenance Bus Command
+        - id: maintBusCommandType
+          label: ""
+          input: dropdown
+          default: Maintenance
+          options:
+            - Maintenance
+            - Charge On
+            - Charge Off
+            - Charge LED
+            - Charge Balance
+        - display: header
+          label: Maintenance Command Payload
+        - id: isBatAContactorClosed
+          label: Bat A HV contactor closed
+          input: checkbox
+        - id: isBatBContactorClosed
+          label: Bat B HV contactor closed
+          input: checkbox
+        - id: isPositiveChargeContactorClosed
+          label: Positive charge contactor closed
+          input: checkbox
+        - id: isNegativeChargeContactorClosed
+          label: Negative charge contactor closed
+          input: checkbox
+        - id: resetAllFaults
+          label: Reset all faults
+          input: checkbox
+        - display: banner
+          value_id: maintCommandLastUpdated
+        - display: header
+          label: Charge On Command Payload
+        - id: chargeOnCommandPayload
+          label: ""
+          input: dropdown
+          default: No Action
+          options:
+            - No Action
+            - Start Charge Bat A
+            - Start Charge Bat B
+            - Start Charge Both
+        - display: banner
+          value_id: chargeOnCommandLastUpdated
+        - display: header
+          label: Charge Off Command Payload
+        - display: banner
+          value_id: chargeOffCommandLastUpdated
+        - display: header
+          label: Charge LED Command Payload
+        - id: chargeLEDCommandPayload
+          label: ""
+          input: dropdown
+          default: Off
+          options:
+            - Off
+            - On
+            - Error
+        - display: banner
+          value_id: chargeLEDCommandLastUpdated
+        - display: header
+          label: Charge Balance Command Payload
+        - id: chargeBalanceCommandPayload
+          label: ""
+          input: dropdown
+          default: Off
+          options:
+            - Off
+            - On
+        - display: banner
+          value_id: chargeBalanceCommandLastUpdated
+        - display: header
+          label: Maintenance Mode Enabled
+        - display: banner
+          value_id: maintenanceModeEnabled
+
+
+right_panel:
+  width: 0.75
+  tabs:
+    - name: Overview (FCB)
+      column_sizes: [1, 1, 1]
+      columns:
+        - layout:
+          - plot: line
+            stream_ids:
+              - bat_a_hv_contactor_status
+              - bat_b_hv_contactor_status
+            title: Battery Contactor
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - hvpmu_positive_charge_contactor
+              - hvpmu_negative_charge_contactor
+            title: Charge Contactor
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - soft_short_detected
+              - hard_short_detected
+            title: Short Detected
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+        - layout:
+          - plot: line
+            stream_id: maintenance_bus_mated
+            title: Maintenance Bus Mated
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - bat_a_hv_terminal_voltage
+              - bat_b_hv_terminal_voltage
+            title: Battery Output Voltage
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - bat_a_output_current
+              - bat_b_output_current
+            title: Battery Output Current
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+        - layout:
+          - plot: line
+            stream_ids:
+              - bat_a_lvpdu_output_voltage
+              - bat_b_lvpdu_output_voltage
+            title: LVDPU Output Voltage
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - bat_a_lvpdu_output_current
+              - bat_b_lvpdu_output_current
+            title: LVDPU Output Current
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - hvpmu_output_1_current
+              - hvpmu_output_2_current
+            title: HVPMU Output Current
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+    - name: LV Load Telemetry (Maint Bus)
+      layout:
+        - display: table
+          value_id: lv_load_telemetry
+        - display: header
+          label: Last updated
+        - display: banner
+          value_id: lv_telemetry_last_updated
+
+    - name: Cell Telemetry (FCB)
+      column_sizes: [1]
+      columns:
+        - layout:
+            - plot: line
+              stream_ids:
+                - bat_a_min_cell_voltage
+                - bat_b_min_cell_voltage
+              title: Battery Min Cell Voltage
+              height: 200
+              show_legend: true
+              show_cursor_values: true
+            - plot: line
+              stream_ids:
+                - bat_a_max_cell_voltage
+                - bat_b_max_cell_voltage
+              title: Battery Max Cell Voltage
+              height: 200
+              show_legend: true
+              show_cursor_values: true
+            - plot: line
+              stream_ids:
+                - bat_a_min_cell_temperature
+                - bat_b_min_cell_temperature
+              title: Battery Min Cell Temperature
+              height: 200
+              show_legend: true
+              show_cursor_values: true
+            - plot: line
+              stream_ids:
+                - bat_a_max_cell_temperature
+                - bat_b_max_cell_temperature
+              title: Battery Max Cell Temperature
+              height: 200
+              show_legend: true
+              show_cursor_values: true
+
+    - name: Cell Telemetry Details (Maint Bus)
+      layout:
+        - display: table
+          value_id: battery_cells_table
+        - display: header
+          label: Last updated
+        - display: banner
+          value_id: ee_telemetry_last_updated
+
+    - name: Charge Telemetry (FCB)
+      column_sizes: [1, 1]
+      columns:
+        - layout:
+          - plot: line
+            stream_ids:
+              - bat_a_min_cell_temperature
+              - bat_b_min_cell_temperature
+              - bat_a_max_cell_temperature
+              - bat_b_max_cell_temperature
+            title: Battery Min/Max Cell Temperature
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - bat_a_min_cell_voltage
+              - bat_b_min_cell_voltage
+              - bat_a_max_cell_voltage
+              - bat_b_max_cell_voltage
+            title: Battery Min/Max Cell Voltage
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+        - layout:
+          - plot: line
+            stream_ids:
+              - bat_a_hv_terminal_voltage
+              - bat_b_hv_terminal_voltage
+            title: Battery Voltage
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - hvpmu_output_voltage
+            title: HVPMU Output Voltage
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+          - plot: line
+            stream_ids:
+              - bat_a_output_current
+              - bat_b_output_current
+            title: Battery Current
+            height: 200
+            show_legend: true
+            show_cursor_values: true
+
+
+    - name: System Telemetry (Maint Bus)
+      column_sizes: [1, 1, 1]
+      columns:
+        - layout:
+          - display: header
+            label: Metadata
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: BMS Part Number
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bms_part_number
+          - direction: horizontal
+            group_layout:
+              - label: BMS Serial Number
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bms_serial_number
+          - direction: horizontal
+            group_layout:
+              - label: Firmware Part Number
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: firmware_part_number
+          - direction: horizontal
+            group_layout:
+              - label: BMS Mode Status
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bms_mode_status
+        - layout:
+          - display: header
+            label: Bat A Telemetry
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: CDA Output Sensor
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: cda_output_sensor
+          - direction: horizontal
+            group_layout:
+              - label: Module 1 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_1_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 2 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_2_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 3 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_3_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 4 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_4_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 5 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_5_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 6 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_6_i2c_fault
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Data PDI CRC Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: data_pdi_crc_fault
+          - direction: horizontal
+            group_layout:
+              - label: Config PDI CRC Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: config_pdi_crc_fault
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Module 1 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_1_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 2 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_2_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 3 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_3_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 4 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_4_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 5 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_5_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 6 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_a_mod_6_bsb_temp
+        - layout:
+          - display: header
+            label: Bat B Telemetry
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: CDA Output Sensor
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: cda_output_sensor
+          - direction: horizontal
+            group_layout:
+              - label: Module 1 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_1_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 2 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_2_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 3 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_3_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 4 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_4_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 5 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_5_i2c_fault
+          - direction: horizontal
+            group_layout:
+              - label: Module 6 I2C Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_6_i2c_fault
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Data PDI CRC Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: data_pdi_crc_fault
+          - direction: horizontal
+            group_layout:
+              - label: Config PDI CRC Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: config_pdi_crc_fault
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Module 1 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_1_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 2 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_2_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 3 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_3_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 4 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_4_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 5 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_5_bsb_temp
+          - direction: horizontal
+            group_layout:
+              - label: Module 6 BSB Temp
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_b_mod_6_bsb_temp
+
+    - name: LV Telemetry (Maint Bus)
+      column_sizes: [1, 1]
+      columns:
+        - layout:
+          - display: header
+            label: Bat A Telemetry
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: LVPDU Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_lvpdu_output_voltage
+          - direction: horizontal
+            group_layout:
+              - label: LVPDU Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_lvpdu_output_current
+          - direction: horizontal
+            group_layout:
+              - label: LVPDU Voltage Sensor Error
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_lvpdu_voltage_sensor_error
+          - direction: horizontal
+            group_layout:
+              - label: LVPDU Current Sensor Error
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_lvpdu_current_sensor_error
+          - direction: horizontal
+            group_layout:
+              - label: Lock LV Load Echo
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_lock_lv_load_echo
+
+        - layout:
+          - display: header
+            label: Bat B Telemetry
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: LVPDU Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_lvpdu_output_voltage
+          - direction: horizontal
+            group_layout:
+              - label: LVPDU Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_lvpdu_output_current
+          - direction: horizontal
+            group_layout:
+              - label: LVPDU Voltage Sensor Error
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_lvpdu_voltage_sensor_error
+          - direction: horizontal
+            group_layout:
+              - label: LVPDU Current Sensor Error
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_lvpdu_current_sensor_error
+
+    - name: HV Telemetry (Maint Bus)
+      column_sizes: [1, 1]
+      columns:
+        - layout:
+          - display: header
+            label: Bat A Telemetry
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Bat 1 HV + to Chassis Resistance
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_1_hv_chassis_resistance_pos
+          - direction: horizontal
+            group_layout:
+              - label: Bat 1 HV - to Chassis Resistance
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_1_hv_chassis_resistance_neg
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Max Cell Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_max_cell_voltage
+          - direction: horizontal
+            group_layout:
+              - label: Min Cell Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_min_cell_voltage
+          - direction: horizontal
+            group_layout:
+              - label: Delta Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_delta_cell_voltage
+
+        - layout:
+          - display: header
+            label: Bat B Telemetry
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Bat 2 HV + to Chassis Resistance
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_2_hv_chassis_resistance_pos
+          - direction: horizontal
+            group_layout:
+              - label: Bat 2 HV - to Chassis Resistance
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: bat_2_hv_chassis_resistance_neg
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Max Cell Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_max_cell_voltage
+          - direction: horizontal
+            group_layout:
+              - label: Min Cell Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_min_cell_voltage
+          - direction: horizontal
+            group_layout:
+              - label: Delta Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_delta_cell_voltage
+
+    - name: EE Telemetry (Maint Bus)
+      column_sizes: [1, 1]
+      columns:
+        - layout:
+          - display: header
+            label: Bat A Telemetry
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Max Cell SOC
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_max_cell_soc
+          - direction: horizontal
+            group_layout:
+              - label: Min Cell SOC
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_min_cell_soc
+          - direction: horizontal
+            group_layout:
+              - label: Delta SOC
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_delta_cell_soc
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: BMIC Fault
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bmic_fault
+          - direction: horizontal
+            group_layout:
+              - label: HV Terminal Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_hv_terminal_voltage
+          - direction: horizontal
+            group_layout:
+              - label: Module 1 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_mod_1_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 2 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_mod_2_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 3 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_mod_3_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 4 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_mod_4_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 5 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_mod_5_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 6 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_a_mod_6_bmic_faults
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Module 1 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_1_upstream_current_1
+          - direction: horizontal
+            group_layout:
+              - label: Module 2 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_1_upstream_current_2
+          - direction: horizontal
+            group_layout:
+              - label: Module 3 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_1_upstream_current_3
+          - direction: horizontal
+            group_layout:
+              - label: Module 4 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_1_upstream_current_4
+          - direction: horizontal
+            group_layout:
+              - label: Module 5 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_1_upstream_current_5
+          - direction: horizontal
+            group_layout:
+              - label: Module 6 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_1_upstream_current_6
+
+        - layout:
+          - display: header
+            label: Bat B Telemetry
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Max Cell SOC
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_max_cell_soc
+          - direction: horizontal
+            group_layout:
+              - label: Min Cell SOC
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_min_cell_soc
+          - direction: horizontal
+            group_layout:
+              - label: Delta SOC
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_delta_cell_soc
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: HV Terminal Voltage
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_hv_terminal_voltage
+          - direction: horizontal
+            group_layout:
+              - label: Module 1 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_mod_1_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 2 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_mod_2_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 3 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_mod_3_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 4 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_mod_4_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 5 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_mod_5_bmic_faults
+          - direction: horizontal
+            group_layout:
+              - label: Module 6 BMIC Faults (1, 2, 3)
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_b_mod_6_bmic_faults
+          - display: separator
+          - direction: horizontal
+            group_layout:
+              - label: Module 1 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_2_upstream_current_1
+          - direction: horizontal
+            group_layout:
+              - label: Module 2 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_2_upstream_current_2
+          - direction: horizontal
+            group_layout:
+              - label: Module 3 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_2_upstream_current_3
+          - direction: horizontal
+            group_layout:
+              - label: Module 4 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_2_upstream_current_4
+          - direction: horizontal
+            group_layout:
+              - label: Module 5 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_2_upstream_current_5
+          - direction: horizontal
+            group_layout:
+              - label: Module 6 Upstream Current
+                display: header
+                font_size: 16
+              - display: banner
+                value_id: maint_bat_2_upstream_current_6
